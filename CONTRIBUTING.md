@@ -1,3 +1,5 @@
+> **Much of the below is outdated based on the old repo that was last updated in 2016.  I'm in the midst of modernizing breakpoint based on developments in SASS over the last 5 years**
+
 ## Contributing to Breakpoint
 
 We love contributors! Yes we do! If you would like to contribute to Breakpoint, please follow the following guidelines:

@@ -1,6 +1,13 @@
 # Changelog
 
-## 2.6.0
+## 2.7.1
+### Dec 7, 2016
+
+## 2.7.0
+### Feb 21, 2016
+
+## 2.6.1
+### May 27, 2015
 * **Change** Moved variable settings to new Breakpoint settings. Future versions will deprecate variable settings. Use `@include breakpoint-set()` or `@include bkpt-set()` to change settings, `@include breakpoint-reset()` or `@include bkpt-reset()` to reset settings to their default state. Please update your settings as followins:
   * `$breakpoint-default-media: value;` should become `@include bkpt-set('default media', value);`
   * `$breakpoint-default-feature: value;` should become `@include bkpt-set('default feature', value);`
@@ -16,10 +23,25 @@
 * **New** Initial support for Libsass 3.1
 
 ## 2.5.0
+### Aug 5, 2014
+
+## 2.4.6
+### Jul 28, 2014
+
+## 2.4.2
+### Mar 19, 2014
+
+## 2.4.1
+### Jan 5, 2014
 
 ## 2.4.0
+### Dec 17, 2013
+
+## 2.3.1
+### Dec 4, 2013
 
 ## 2.3.0
+### Dec 2, 2013
 
 ## 2.2.0
 ### Nov 23, 2013
@@ -28,7 +50,7 @@
 * convert context to use sass maps
 
 ## 2.0.7
-### Sept 17th, 2013
+### Sept 17, 2013
 * fix fallback support for 1.x
 
 ## 2.0.0
@@ -36,12 +58,12 @@
 * Looks like we forgot release notes for 2.0. oops
 
 ## 1.3
-### August 28th, 2012
+### August 28, 2012
 * better conversion to base-ems
 * fix floating point error
 
 ## 1.2
-### August 16th, 2012
+### August 16, 2012
 * Added ability to force the 'all' media type to be written by setting `$breakpoint-force-media-all: true;`. Defaults to `false`.
 * Added ability to generate no query fallback code. See the README for full documentaiton.
 
