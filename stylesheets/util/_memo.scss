@@ -1,34 +1,43 @@
-//This is the actual code of sassy maps's memo module for now.
-//Eventually, convert to new syntax
+//Based on Sassy-Maps's memo implementation, converted to use new built in modules
 
-@use "sassy-maps" as sm;
+@use 'sass:map';
+@use 'sass:list';
 
-$Memoization-Table: () !default;
+$table: () !default;
 
 //////////////////////////////
 // Memoization Set
 //////////////////////////////
-@function memo-set($module, $key, $value) {
+@function set($module, $key, $value) {
   $module: "#{$module}";
   $key: "#{$key}";
 
-  $Memoization-Table: sm.map-set-deep($Memoization-Table, ($module $key), $value) !global;
+  $table: map.set($table, $module, $key, $value) !global;
 
   @return true;
 }
 
-@mixin memo-set($module, $key, $value) {
-  $holder: memo-set($module, $key, $value);
+@mixin set($module, $key, $value) {
+  $holder: set($module, $key, $value);
 }
 
 //////////////////////////////
 // Memoization Get
 //////////////////////////////
-@function memo-get($module, $key) {
+@function get($module, $key) {
   $module: "#{$module}";
   $key: "#{$key}";
-  $_: sm.suppress-warnings(true);
-  $result: sm.map-get-deep($Memoization-Table, $module, $key);
-  $_: sm.suppress-warnings();
+
+  $result: map.get($table, $module, $key);
+
   @return $result;
+}
+
+@function clear($module: null) {
+  @if ($module) {
+    $table: map.remove($table, $module);
+  } @else {
+    $table: ();
+  }
+  @return null;
 }
