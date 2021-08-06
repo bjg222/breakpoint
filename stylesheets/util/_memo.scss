@@ -1,7 +1,7 @@
-//This is the actual code of sassy maps's memo module for now.
-//Eventually, convert to new syntax
+//Based on Sassy-Maps's memo implementation, converted to use new built in modules
 
-@use "sassy-maps" as sm;
+@use 'sass:map';
+@use 'sass:list';
 
 $Memoization-Table: () !default;
 
@@ -12,7 +12,7 @@ $Memoization-Table: () !default;
   $module: "#{$module}";
   $key: "#{$key}";
 
-  $Memoization-Table: sm.map-set-deep($Memoization-Table, ($module $key), $value) !global;
+  $Memoization-Table: map.set($Memoization-Table, $module, $key, $value) !global;
 
   @return true;
 }
@@ -27,8 +27,8 @@ $Memoization-Table: () !default;
 @function memo-get($module, $key) {
   $module: "#{$module}";
   $key: "#{$key}";
-  $_: sm.suppress-warnings(true);
-  $result: sm.map-get-deep($Memoization-Table, $module, $key);
-  $_: sm.suppress-warnings();
+
+  $result: map.get($Memoization-Table, $module, $key);
+
   @return $result;
 }
