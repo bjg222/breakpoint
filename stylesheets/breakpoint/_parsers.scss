@@ -1,3 +1,6 @@
+@use "breakpoint/settings";
+@use "util/memo";
+
 //////////////////////////////
 // Import Parser Pieces
 //////////////////////////////
@@ -7,8 +10,6 @@
 @import "parsers/triple";
 @import "parsers/resolution";
 
-$Memo-Exists: function-exists(get, memo) and function-exists(set, memo);
-
 //////////////////////////////
 // Breakpoint Function
 //////////////////////////////
@@ -17,7 +18,7 @@ $Memo-Exists: function-exists(get, memo) and function-exists(set, memo);
   $return: ();
 
   // Grab the Memo Output if Memoization can be a thing
-  @if $Memo-Exists {
+  @if settings.get('use memo') {
     $return: memo.get(breakpoint, breakpoint $query $contexts);
 
     @if $return != null {
@@ -25,7 +26,7 @@ $Memo-Exists: function-exists(get, memo) and function-exists(set, memo);
     }
   }
 
-  @if not $Memo-Exists or $run {
+  @if not settings.get('use memo') or $run {
     // Internal Variables
     $query-string: '';
     $query-fallback: false;
@@ -44,7 +45,7 @@ $Memo-Exists: function-exists(get, memo) and function-exists(set, memo);
     $or-list: if(list-separator($query) == 'comma', true, false);
 
 
-    @if ($or-list == false and breakpoint-get('legacy syntax') == false) {
+    @if ($or-list == false and settings.get('legacy syntax') == false) {
       $query-string: breakpoint-parse($query);
     }
     @else {
@@ -57,7 +58,7 @@ $Memo-Exists: function-exists(get, memo) and function-exists(set, memo);
         $length: $length - 1;
       }
 
-      @if (breakpoint-get('legacy syntax') == true) {
+      @if (settings.get('legacy syntax') == true) {
         $mq: ();
 
         @for $i from 1 through $length {
@@ -94,7 +95,7 @@ $Memo-Exists: function-exists(get, memo) and function-exists(set, memo);
     $private-breakpoint-context-holder: () !global;
     $private-breakpoint-query-count: 0 !global;
 
-    @if $Memo-Exists {
+    @if settings.get('use memo') {
       $holder: memo.set(breakpoint, breakpoint $query $contexts, $return);
     }
   }
@@ -112,11 +113,11 @@ $Memo-Exists: function-exists(get, memo) and function-exists(set, memo);
   // Set up Media Type
   $query-print: '';
 
-  $force-all: ((breakpoint-get('force all media type') == true) and (breakpoint-get('default media') == 'all'));
+  $force-all: ((settings.get('force all media type') == true) and (settings.get('default media') == 'all'));
   $empty-media: true;
-  @if ($force-all == true) or (breakpoint-get('default media') != 'all') {
+  @if ($force-all == true) or (settings.get('default media') != 'all') {
     // Force the print of the default media type if (force all is true and default media type is all) or (default media type is not all)
-    $query-print: breakpoint-get('default media');
+    $query-print: settings.get('default media');
     $empty-media: false;
   }
 
@@ -201,7 +202,7 @@ $Memo-Exists: function-exists(get, memo) and function-exists(set, memo);
     @if length($v-holder) < $private-breakpoint-query-count {
       @for $i from $length to $private-breakpoint-query-count {
         @if $f == 'media' {
-          $v-holder: append($v-holder, breakpoint-get('default media'));
+          $v-holder: append($v-holder, settings.get('default media'));
         }
         @else {
           $v-holder: append($v-holder, false);

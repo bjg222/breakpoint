@@ -1,3 +1,5 @@
-@use "util/memo";;
+@use 'breakpoint' as b with ($configure: ('use memo': true));
+
+@use "util/memo";
 
 @import "01_pixel";

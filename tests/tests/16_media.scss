@@ -1,3 +1,5 @@
+@use 'breakpoint' as b;
+
 @import 'variables';
 /*
  * Media features (ie. tv)
@@ -10,52 +12,52 @@
  */
 
 .media {
-  @include breakpoint($simple-media) {
+  @include b.breakpoint($simple-media) {
     content: '$simple-media';
     content: '@media tv';
   }
-  @include breakpoint($media-plus-default) {
+  @include b.breakpoint($media-plus-default) {
     content: '$media-plus-default';
     content: '@media not tv and (min-width: 500px)';
   }
-  @include breakpoint($media-plus-fence) {
+  @include b.breakpoint($media-plus-fence) {
     content: '$media-plus-fence';
     content: '@media tv and (min-width: 500px) and (max-width: 700px)';
   }
-  @include breakpoint($media-only) {
+  @include b.breakpoint($media-only) {
     content: '$media-only';
     content: '@media only print';
   }
-  @include breakpoint($media-not) {
+  @include b.breakpoint($media-not) {
     content: '$media-not)';
     content: '@media not print';
   }
-  @include breakpoint($media-not-plus-fenced) {
+  @include b.breakpoint($media-not-plus-fenced) {
     content: '$media-not-plus-fenced';
     content: '@media not print and (min-width: 500px) and (max-width: 700px)';
   }
 
-  @include mq($simple-media) {
+  @include b.mq($simple-media) {
     content: '$simple-media';
     content: '@media tv';
   }
-  @include mq($media-plus-default) {
+  @include b.mq($media-plus-default) {
     content: '$media-plus-default';
     content: '@media not tv and (min-width: 500px)';
   }
-  @include mq($media-plus-fence) {
+  @include b.mq($media-plus-fence) {
     content: '$media-plus-fence';
     content: '@media tv and (min-width: 500px) and (max-width: 700px)';
   }
-  @include mq($media-only) {
+  @include b.mq($media-only) {
     content: '$media-only';
     content: '@media only print';
   }
-  @include mq($media-not) {
+  @include b.mq($media-not) {
     content: '$media-not)';
     content: '@media not print';
   }
-  @include mq($media-not-plus-fenced) {
+  @include b.mq($media-not-plus-fenced) {
     content: '$media-not-plus-fenced';
     content: '@media not print and (min-width: 500px) and (max-width: 700px)';
   }

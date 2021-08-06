@@ -1,16 +1,18 @@
+@use 'breakpoint' as b with ($settings-config: ('use memo': true));
 @use "util/memo";
+
 @import "variables";
 
 $_: memo.clear();
 $loops: 100;
 
-@include breakpoint-set('no queries', true);
-@include breakpoint-set('no query fallbacks', true);
+@include b.settings-set('no queries', true);
+@include b.settings-set('no query fallbacks', true);
 
 @mixin memoize-loop($var) {
   _memoization: "#{inspect(memo.$table)}";
   @for $i from 1 through $loops {
-    @include breakpoint($var) {
+    @include b.breakpoint($var) {
       _test: "breakpoint(#{$var})";
       // _memoization: "#{inspect(memo.$table)}"
     }
@@ -46,7 +48,7 @@ $loops: 100;
   @for $i from 1 through $loops {
     _test: "breakpoint(#{$legacy})";
     // _memoization: "#{inspect(memo.$table)}"
-    $bkpt: breakpoint($legacy, 'min-width', 'media', 'no-query');
+    $bkpt: b.breakpoint($legacy, 'min-width', 'media', 'no-query');
     $contexts: map-get($bkpt, 'context');
     @each $k, $v in $contexts {
       _#{$k}: inspect($v);

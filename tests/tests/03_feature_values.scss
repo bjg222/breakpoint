@@ -1,3 +1,5 @@
+@use 'breakpoint' as b;
+
 @import 'variables';
 /*
  * Single value with feature
@@ -8,65 +10,65 @@
  */
 
 .foo {
-  @include breakpoint($feature-first) {
+  @include b.breakpoint($feature-first) {
     content: '$feature-first';
     content: '@media (height: 500px)';
   }
-  @include breakpoint($value-first) {
+  @include b.breakpoint($value-first) {
     content: '$value-first';
     content: '@media (height: 500px)';
   }
-  @include breakpoint($arbitrary-feature) {
+  @include b.breakpoint($arbitrary-feature) {
     content: '$arbitrary-feature';
     content: '@media (lion: 500px)';
   }
-  @include breakpoint($feature-value-both-strings) {
+  @include b.breakpoint($feature-value-both-strings) {
     content: '$feature-value-both-strings';
     content: '@media (orientation: portrait)';
   }
 
-  @include mq($feature-first) {
+  @include b.mq($feature-first) {
     content: '$feature-first';
     content: '@media (height: 500px)';
   }
-  @include mq($value-first) {
+  @include b.mq($value-first) {
     content: '$value-first';
     content: '@media (height: 500px)';
   }
-  @include mq($arbitrary-feature) {
+  @include b.mq($arbitrary-feature) {
     content: '$arbitrary-feature';
     content: '@media (lion: 500px)';
   }
-  @include mq($feature-value-both-strings) {
+  @include b.mq($feature-value-both-strings) {
     content: '$feature-value-both-strings';
     content: '@media (orientation: portrait)';
   }
 }
 
-@include breakpoint-set('to ems', true);
+@include b.settings-set('to ems', true);
 .bar {
-  @include breakpoint($feature-first) {
+  @include b.breakpoint($feature-first) {
     content: '$feature-first';
     content: '@media (height: 31.25em)';
   }
-  @include breakpoint($value-first) {
+  @include b.breakpoint($value-first) {
     content: '$value-first';
     content: '@media (height: 31.25em)';
   }
-  @include breakpoint($arbitrary-feature) {
+  @include b.breakpoint($arbitrary-feature) {
     content: '$arbitrary-feature';
     content: '@media (lion: 31.25em)';
   }
 
-  @include mq($feature-first) {
+  @include b.mq($feature-first) {
     content: '$feature-first';
     content: '@media (height: 31.25em)';
   }
-  @include mq($value-first) {
+  @include b.mq($value-first) {
     content: '$value-first';
     content: '@media (height: 31.25em)';
   }
-  @include mq($arbitrary-feature) {
+  @include b.mq($arbitrary-feature) {
     content: '$arbitrary-feature';
     content: '@media (lion: 31.25em)';
   }

@@ -1,3 +1,3 @@
-@use "util/memo";;
+@use 'breakpoint' as b with ($settings-config: ('use memo': true));
 
 @import "14_context_complex";

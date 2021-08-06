@@ -1,3 +1,5 @@
+@use "breakpoint/settings";
+
 @function breakpoint-parse-triple-default($feature, $first, $second) {
 
   // Sort into min and max
@@ -9,7 +11,7 @@
   $context-setter: private-breakpoint-set-context(max-#{$feature}, $max);
 
   // Make them EMs if need be
-  @if (breakpoint-get('to ems') == true) {
+  @if (settings.get('to ems') == true) {
     $min: breakpoint-to-base-em($min);
     $max: breakpoint-to-base-em($max);
   }

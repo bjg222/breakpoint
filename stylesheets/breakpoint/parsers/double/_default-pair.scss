@@ -1,5 +1,7 @@
+@use "breakpoint/settings";
+
 @function breakpoint-parse-default-pair($first, $second) {
-  $default: breakpoint-get('default pair');
+  $default: settings.get('default pair');
   $min: '';
   $max: '';
 
@@ -12,7 +14,7 @@
   $context-setter: private-breakpoint-set-context(max-#{$default}, $max);
 
   // Make them EMs if need be
-  @if (breakpoint-get('to ems') == true) {
+  @if (settings.get('to ems') == true) {
     $min: breakpoint-to-base-em($min);
     $max: breakpoint-to-base-em($max);
   }

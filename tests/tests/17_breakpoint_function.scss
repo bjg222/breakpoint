@@ -1,7 +1,9 @@
+@use 'breakpoint' as b;
+
 @import "variables";
 
 @mixin breakpoint-test-query($mq) {
-  $bkpt: breakpoint($mq);
+  $bkpt: b.breakpoint($mq);
   _query: inspect(map-get($bkpt, 'query'));
   _fallback: inspect(map-get($bkpt, 'fallback'));
   _context-holder: inspect(map-get($bkpt, 'context holder'));
@@ -9,7 +11,7 @@
 }
 
 @mixin breakpoint-test-context($mq, $contexts) {
-  $bkpt: breakpoint($mq, $contexts);
+  $bkpt: b.breakpoint($mq, $contexts);
   @each $k, $v in $bkpt {
     _#{$k}: inspect($v);
   }
@@ -40,35 +42,35 @@
 .context {
   /* Single Pixel Value */
   _test: "breakpoint(#{$single-pixel-value}, 'min-width')";
-  $bkpt: breakpoint($single-pixel-value, 'min-width', 'height', 'no-query');
+  $bkpt: b.breakpoint($single-pixel-value, 'min-width', 'height', 'no-query');
   $contexts: map-get($bkpt, 'context');
   @each $k, $v in $contexts {
     _#{$k}: inspect($v);
   }
   /* Fenced with Media */
   _test: "breakpoint(#{$media-not-plus-fenced}, 'min-width', 'max-width', 'media')";
-  $bkpt: breakpoint($media-not-plus-fenced, 'min-width', 'max-width', 'media');
+  $bkpt: b.breakpoint($media-not-plus-fenced, 'min-width', 'max-width', 'media');
   $contexts: map-get($bkpt, 'context');
   @each $k, $v in $contexts {
     _#{$k}: inspect($v);
   }
   /* Or Query */
   _test: "breakpoint(#{$dynamic-context})";
-  $bkpt: breakpoint($dynamic-context, 'min-width', 'min-height', 'orientation', 'no-query');
+  $bkpt: b.breakpoint($dynamic-context, 'min-width', 'min-height', 'orientation', 'no-query');
   $contexts: map-get($bkpt, 'context');
   @each $k, $v in $contexts {
     _#{$k}: inspect($v);
   }
   /* No Query */
   _test: "breakpoint(#{$no-query})";
-  $bkpt: breakpoint($no-query, 'min-width', 'media', 'no-query');
+  $bkpt: b.breakpoint($no-query, 'min-width', 'media', 'no-query');
   $contexts: map-get($bkpt, 'context');
   @each $k, $v in $contexts {
     _#{$k}: inspect($v);
   }
   /* No Query, Or */
   _test: "breakpoint(#{$legacy})";
-  $bkpt: breakpoint($legacy, 'min-width', 'media', 'no-query');
+  $bkpt: b.breakpoint($legacy, 'min-width', 'media', 'no-query');
   $contexts: map-get($bkpt, 'context');
   @each $k, $v in $contexts {
     _#{$k}: inspect($v);

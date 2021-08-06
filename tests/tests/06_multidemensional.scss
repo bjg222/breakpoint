@@ -1,3 +1,5 @@
+@use 'breakpoint' as b;
+
 @import 'variables';
 /*
  * Multidimensional lists,
@@ -5,25 +7,25 @@
  * $multidimensional : #{$multidimensional};
  */
 .multidimensional {
-  @include breakpoint($multidimensional) {
+  @include b.breakpoint($multidimensional) {
     content: '$multidimensional';
     content: '@media (height: 500px) and (orientation: portrait)';
   }
 
-  @include mq($multidimensional) {
+  @include b.mq($multidimensional) {
     content: '$multidimensional';
     content: '@media (height: 500px) and (orientation: portrait)';
   }
 }
-/* @include breakpoint-set('to ems', true); */
-@include breakpoint-set('to ems', true);
+/* @include b.settings-set('to ems', true); */
+@include b.settings-set('to ems', true);
 .multidimensional-to-ems {
-  @include breakpoint($multidimensional) {
+  @include b.breakpoint($multidimensional) {
     content: '$multidimensional';
     content: '@media (height: 31.25em) and (orientation: portrait)';
   }
 
-  @include mq($multidimensional) {
+  @include b.mq($multidimensional) {
     content: '$multidimensional';
     content: '@media (height: 31.25em) and (orientation: portrait)';
   }
