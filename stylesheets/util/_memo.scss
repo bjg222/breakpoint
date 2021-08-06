@@ -3,32 +3,41 @@
 @use 'sass:map';
 @use 'sass:list';
 
-$Memoization-Table: () !default;
+$table: () !default;
 
 //////////////////////////////
 // Memoization Set
 //////////////////////////////
-@function memo-set($module, $key, $value) {
+@function set($module, $key, $value) {
   $module: "#{$module}";
   $key: "#{$key}";
 
-  $Memoization-Table: map.set($Memoization-Table, $module, $key, $value) !global;
+  $table: map.set($table, $module, $key, $value) !global;
 
   @return true;
 }
 
-@mixin memo-set($module, $key, $value) {
-  $holder: memo-set($module, $key, $value);
+@mixin set($module, $key, $value) {
+  $holder: set($module, $key, $value);
 }
 
 //////////////////////////////
 // Memoization Get
 //////////////////////////////
-@function memo-get($module, $key) {
+@function get($module, $key) {
   $module: "#{$module}";
   $key: "#{$key}";
 
-  $result: map.get($Memoization-Table, $module, $key);
+  $result: map.get($table, $module, $key);
 
   @return $result;
+}
+
+@function clear($module: null) {
+  @if ($module) {
+    $table: map.remove($table, $module);
+  } @else {
+    $table: ();
+  }
+  @return null;
 }

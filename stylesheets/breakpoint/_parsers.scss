@@ -7,7 +7,7 @@
 @import "parsers/triple";
 @import "parsers/resolution";
 
-$Memo-Exists: function-exists(memo-get) and function-exists(memo-set);
+$Memo-Exists: function-exists(get, memo) and function-exists(set, memo);
 
 //////////////////////////////
 // Breakpoint Function
@@ -18,7 +18,7 @@ $Memo-Exists: function-exists(memo-get) and function-exists(memo-set);
 
   // Grab the Memo Output if Memoization can be a thing
   @if $Memo-Exists {
-    $return: memo-get(breakpoint, breakpoint $query $contexts);
+    $return: memo.get(breakpoint, breakpoint $query $contexts);
 
     @if $return != null {
       $run: false;
@@ -95,7 +95,7 @@ $Memo-Exists: function-exists(memo-get) and function-exists(memo-set);
     $private-breakpoint-query-count: 0 !global;
 
     @if $Memo-Exists {
-      $holder: memo-set(breakpoint, breakpoint $query $contexts, $return);
+      $holder: memo.set(breakpoint, breakpoint $query $contexts, $return);
     }
   }
 
