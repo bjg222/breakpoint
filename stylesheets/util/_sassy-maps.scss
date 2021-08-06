@@ -1,0 +1,27 @@
+//For the time being, replace the sassy-maps functions with wrappers for the native versions.
+//Eventually, repalce calls to these functions with their native counterparts
+
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:meta';
+
+$-sassy-maps-suppress-warnings-default: false;
+$-sassy-maps-suppress-warnings: $-sassy-maps-suppress-warnings-default;
+
+@function map-get-deep($map, $keys...) {
+    @return map.get($map, $keys...);
+}
+
+@function map-set-deep($map, $keys, $value) {
+    $args: list.append($keys, $value);
+    @return map.set($map, $args...);
+}
+
+@function map-to-string($map) {
+    @return meta.inspect($map);
+}
+
+@function suppress-warnings($val: $-sassy-maps-suppress-warnings-default) {
+    $-sassy-maps-suppress-warnings: $val !global;
+    @return $val;
+}
