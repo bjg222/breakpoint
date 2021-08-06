@@ -1,31 +1,33 @@
+@use 'breakpoint' as b;
+
 @import 'variables';
 /*
  * Resolution queries, device pixel ratio and standard resolution
  * $device-pixel-ratio: #{$device-pixel-ratio}
  * $resolution: #{$resolution}
  */
-@include breakpoint-set('transform resolutions', true);
+@include b.settings-set('transform resolutions', true);
 
 .resolution {
-  @include breakpoint($device-pixel-ratio) {
+  @include b.breakpoint($device-pixel-ratio) {
     content: $device-pixel-ratio;
     content: '@media (resolution: 2dppx), (-webkit-device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (resolution: 192dpi)';
   }
-  @include breakpoint($resolution) {
+  @include b.breakpoint($resolution) {
     content: $resolution;
     content: '@media (min-resolution: 192dpi), (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2)';
   }
 
-  @include mq($device-pixel-ratio) {
+  @include b.mq($device-pixel-ratio) {
     content: $device-pixel-ratio;
     content: '@media (resolution: 2dppx), (-webkit-device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (resolution: 192dpi)';
   }
-  @include mq($resolution) {
+  @include b.mq($resolution) {
     content: $resolution;
     content: '@media (min-resolution: 192dpi), (-webkit-min-device-pixel-ratio: 2), (min--moz-device-pixel-ratio: 2)';
   }
 
-  @include respond-to('device pixel ratio') {
+  @include b.respond-to('device pixel ratio') {
     content: $device-pixel-ratio;
     content: '@media (resolution: 2dppx), (-webkit-device-pixel-ratio: 2), (-moz-device-pixel-ratio: 2), (resolution: 192dpi)';
   }

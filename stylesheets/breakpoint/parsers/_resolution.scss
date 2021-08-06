@@ -1,3 +1,5 @@
+@use "breakpoint/settings";
+
 @import "resolution/resolution";
 
 @function breakpoint-build-resolution($query-print, $query-resolution, $empty-media, $first) {
@@ -7,7 +9,7 @@
     $leader: 'and ';
   }
 
-  @if breakpoint-get('transform resolutions') and $query-resolution {
+  @if settings.get('transform resolutions') and $query-resolution {
     $resolutions: breakpoint-make-resolutions($query-resolution);
     $length: length($resolutions);
     $query-holder: '';

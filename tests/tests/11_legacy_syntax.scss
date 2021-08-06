@@ -1,16 +1,18 @@
+@use 'breakpoint' as b;
+
 @import 'variables';
 /*
  * Legacy syntax
  */
-@include breakpoint-set('legacy syntax', true);
+@include b.settings-set('legacy syntax', true);
 
 .legacy {
-  @include breakpoint($legacy) {
+  @include b.breakpoint($legacy) {
     content: '$legacy';
     content: '@media not screen and (min-width: 500px)';
   }
 
-  @include mq($legacy) {
+  @include b.mq($legacy) {
     content: '$legacy';
     content: '@media not screen and (min-width: 500px)';
   }

@@ -1,3 +1,5 @@
+@use "breakpoint/settings";
+
 @function breakpoint-parse-double-default($first, $second) {
   $feature: '';
   $value: '';
@@ -14,7 +16,7 @@
   // Set Context
   $context-setter: private-breakpoint-set-context($feature, $value);
 
-  @if (breakpoint-get('to ems') == true) {
+  @if (settings.get('to ems') == true) {
     $value: breakpoint-to-base-em($value);
   }
 

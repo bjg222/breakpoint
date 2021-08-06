@@ -1,3 +1,5 @@
+@use "breakpoint/settings";
+
 //////////////////////////////
 // Private Breakpoint Variables
 //////////////////////////////
@@ -34,7 +36,7 @@ $private-breakpoint-query-count: 0 !default;
   }
   @else {
     @if breakpoint-has-context() and $feature == 'media' {
-      @return breakpoint-get('default media');
+      @return settings.get('default media');
     }
     @else {
       @return false;
@@ -59,7 +61,7 @@ $private-breakpoint-query-count: 0 !default;
     $v-holder: ();
     @for $i from 1 to $private-breakpoint-query-count {
       @if $feature == 'media' {
-        $v-holder: append($v-holder, breakpoint-get('default media'));
+        $v-holder: append($v-holder, settings.get('default media'));
       }
       @else {
         $v-holder: append($v-holder, false);
@@ -73,7 +75,7 @@ $private-breakpoint-query-count: 0 !default;
     $length: length($v-holder);
     @for $i from $length to $private-breakpoint-query-count - 1 {
       @if $feature == 'media' {
-        $v-holder: append($v-holder, breakpoint-get('default media'));
+        $v-holder: append($v-holder, settings.get('default media'));
       }
       @else {
         $v-holder: append($v-holder, false);
