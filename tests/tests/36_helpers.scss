@@ -1,0 +1,57 @@
+@use 'util/features';
+@use 'util/convert';
+$use-new: true;
+
+// @use 'breakpoint/helpers';
+// $use-new: false;
+
+@mixin do-call($f, $v) {
+    $o: null;
+    @if ($use-new) {
+        @if ($f == 'media') {
+            $o: features.is-media($v);
+        } @else if ($f == 'resolution') {
+            $o: features.is-resolution($v);
+        } @else if ($f == 'min-max') {
+            $o: features.is-min-max($v);
+        } @else if ($f == 'single') {
+            $o: features.is-single($v);
+        } @else if ($f == 'string') {
+            $o: features.is-string($v);
+        }
+    } @else {
+        @if ($f == 'media') {
+            $o: helpers.breakpoint-is-media($v);
+        } @else if ($f == 'resolution') {
+            $o: helpers.breakpoint-is-resolution($v);
+        } @else if ($f == 'min-max') {
+            $o: helpers.breakpoint-min-max($v);
+        } @else if ($f == 'single') {
+            $o: helpers.breakpoint-single-string($v);
+        } @else if ($f == 'string') {
+            $o: helpers.breakpoint-string-value($v);
+        }
+    }
+    content: $f $v $o;
+}
+
+$functions: (min-max, string, single, resolution, media);
+$values: ("300/250", "320/480", "aspect-ratio", "color", "device-aspect-ratio", "luminosity", "max-device-aspect-ratio",
+    "min-aspect-ratio", "min-height", "min-resolution", "not print", "not screen", "not tv", "only print", "orientation",
+    "pointer", "resolution", "scan", ("min-height" 200px), (300px 325px), (500px 600px), (500px 700px), (600px 700px),
+    (700px color), (height 500px), (max-height 1200px), (max-width 350px), (monochrome 300px), (orientation portriat),
+    (portrait orientation), 1000px, 1200px, 192dpi, 200px, 2dppx, 300px, 30em, 325px, 350px, 400px, 500px, 600px, 700px,
+    800px, color, height, lion, max-height, max-width, monochrome, orientation, portrait, portriat, print, screen, tv,
+    resolution, device-pixel-ratio);
+
+.features {
+    @each $f in $functions {
+        @each $v in $values{
+            @include do-call($f, $v);
+        }
+    }
+}
+
+.convert {
+    content: '';
+}
