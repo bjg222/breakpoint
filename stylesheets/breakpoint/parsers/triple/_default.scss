@@ -1,4 +1,5 @@
 @use "breakpoint/settings";
+@use "util/convert";
 
 @function breakpoint-parse-triple-default($feature, $first, $second) {
 
@@ -12,8 +13,8 @@
 
   // Make them EMs if need be
   @if (settings.get('to ems') == true) {
-    $min: breakpoint-to-base-em($min);
-    $max: breakpoint-to-base-em($max);
+    $min: convert.to-em($min);
+    $max: convert.to-em($max);
   }
 
   @return '(min-#{$feature}: #{$min}) and (max-#{$feature}: #{$max})';

@@ -1,3 +1,5 @@
+@use "util/features";
+
 //////////////////////////////
 // Import Pieces
 //////////////////////////////
@@ -12,7 +14,7 @@
   }
 
   // If it's a single feature that can stand alone, we let it
-  @if (breakpoint-single-string($feature)) {
+  @if (features.is-single($feature)) {
     $parsed: $feature;
     // Set Context
     $context-setter: private-breakpoint-set-context($feature, $feature);

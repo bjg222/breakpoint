@@ -1,4 +1,5 @@
 @use "breakpoint/settings";
+@use "util/convert";
 
 @function breakpoint-parse-double-default($first, $second) {
   $feature: '';
@@ -17,7 +18,7 @@
   $context-setter: private-breakpoint-set-context($feature, $value);
 
   @if (settings.get('to ems') == true) {
-    $value: breakpoint-to-base-em($value);
+    $value: convert.to-em($value);
   }
 
   @return '(#{$feature}: #{$value})'
