@@ -1,4 +1,4 @@
-@use 'breakpoint' as b with ($configure: ('use memo': true));
+@use 'breakpoint' as b with ($config: ('use memo': true));
 
 @use "util/memo";
 
