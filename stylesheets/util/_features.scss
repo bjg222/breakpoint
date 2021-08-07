@@ -36,11 +36,13 @@ $_string: 'orientation',
           'luminosity';
 
 @function is-string($feature) {
-  @return (list.index($_string, $feature)) != null or
+  //TODO: the first clause below is what existed before, but it seems wrong.  Some things above, like aspect-ratio, can be
+  //provided without the min or max for an exact value, so why does this have to return false in that case?
+  @return ((list.index($_string, $feature) != null and not is-min-max($feature)) or
             (meta.type-of($feature) == 'string' and
-            (string.slice($feature, 1, 4) == 'max-' or string.slice($feature, 1, 3) == 'min-') and
-            min-max(string.slice($feature, 5, -1)) and
-            list.index($_string, string.slice($feature, 5, -1)) != null);
+            (string.slice($feature, 1, 4) == 'max-' or string.slice($feature, 1, 4) == 'min-') and
+            is-min-max(string.slice($feature, 5, -1)) and
+            list.index($_string, string.slice($feature, 5, -1)) != null));
 }
 
 //////////////////////////////

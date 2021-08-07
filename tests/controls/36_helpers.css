@@ -292,5 +292,41 @@
 }
 
 .convert {
-  content: "";
+  font-size: 16px;
+  content: convert 200px 12.5em;
+  content: convert 300px 18.75em;
+  content: convert 325px 20.3125em;
+  content: convert 350px 21.875em;
+  content: convert 400px 25em;
+  content: convert 500px 31.25em;
+  content: convert 600px 37.5em;
+  content: convert 700px 43.75em;
+  content: convert 800px 50em;
+  content: convert 1000px 62.5em;
+  content: convert 1200px 75em;
+  content: convert 30em 30em;
+  content: convert 25% 0.25em;
+  content: convert 24pt 2em;
+  content: convert 192dpi 192dpi;
+  content: convert 2dppx 2dppx;
+}
+
+.convert {
+  font-size: 10px;
+  content: convert 200px 12.5em;
+  content: convert 300px 18.75em;
+  content: convert 325px 20.3125em;
+  content: convert 350px 21.875em;
+  content: convert 400px 25em;
+  content: convert 500px 31.25em;
+  content: convert 600px 37.5em;
+  content: convert 700px 43.75em;
+  content: convert 800px 50em;
+  content: convert 1000px 62.5em;
+  content: convert 1200px 75em;
+  content: convert 30em 48em;
+  content: convert 25% 0.25em;
+  content: convert 24pt 2em;
+  content: convert 192dpi 192dpi;
+  content: convert 2dppx 2dppx;
 }

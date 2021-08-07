@@ -1,9 +1,14 @@
+@use 'sass:math';
+
 @use "breakpoint/settings";
 
 //////////////////////////////
 // Converts the input value to Base EMs
 //////////////////////////////
-@function to-em($value) {
+//TODO: this function will always assume 16px = 1, is that the right thing?
+//I think it's primarily used to put width/heigh queries in em, which are based on browser base font size, typically
+//16px, so might be the right thing after all
+@function to-base-em($value) {
   $value-unit: unit($value);
 
   // Will convert relative EMs into root EMs.
@@ -12,7 +17,7 @@
 
     //TODO: There are other units that may be relevant here, perhaps find a way to generalize
     @if $base-unit == 'px' or $base-unit == '%' or $base-unit == 'em' or $base-unit == 'pt' {
-      @return base-conversion($value) / base-conversion(settings.get('base font size')) * 1em;
+      @return math.div(base-conversion($value), base-conversion(settings.get('base font size'))) * 1em;
     }
     @else {
       @warn '#{settings.get("base font size")} is not set in valid units for font size!';
@@ -28,16 +33,16 @@
   $unit: unit($value);
 
   @if $unit == 'px' {
-    @return $value / 16px * 1em;
+    @return math.div($value, 16px) * 1em;
   }
   @else if $unit == '%' {
-    @return $value / 100% * 1em;
+    @return math.div($value, 100%) * 1em;
   }
   @else if $unit == 'em' {
     @return $value;
   }
   @else if $unit == 'pt' {
-    @return $value / 12pt * 1em;
+    @return math.div($value, 12pt) * 1em;
   }
   @else {
     @return $value;
