@@ -18,7 +18,7 @@ $_min-max: 'color',
            'resolution',
            'width';
 
-@function min-max($feature) {
+@function is-min-max($feature) {
   @return list.index($_min-max, $feature) != null;
 }
 
@@ -34,7 +34,7 @@ $_string: 'orientation',
           'pointer',
           'luminosity';
 
-@function string-value($feature) {
+@function is-string($feature) {
   @return (list.index($_string, $feature)) != null or
             ((string.slice($feature, 1, 4) == 'max-' or string.slice($feature, 1, 3) == 'min-') and
             min-max(string.slice($feature, 5, -1)) and list.index($_string, string.slice($feature, 5, -1)) != null);
@@ -44,60 +44,49 @@ $_string: 'orientation',
 // Returns whether the feature is a media type
 //////////////////////////////
 //TODO: Update this list
-$_media-types: 'all',
-               'braille',
-               'embossed',
-               'handheld',
-               'print',
-               'projection',
-               'screen',
-               'speech',
-               'tty',
-               'tv';
+$_media: 'all',
+         'braille',
+         'embossed',
+         'handheld',
+         'print',
+         'projection',
+         'screen',
+         'speech',
+         'tty',
+         'tv';
 
 @function is-media($feature) {
-  @each $media in $media-types {
-    @if ($feature == $media) or ($feature == 'not #{$media}') or ($feature == 'only #{$media}') {
-      @return true;
-    }
-  }
-
-  @return false;
+  $feature: if(string.slice($feature, 1, 4) == 'not ', string.slice($feature, 5, -1),
+              if(string.slice($feature, 1, 5) == 'only ', string.slice($feature, 6, -1), $feature));
+  @return list.index($_media, $feature) != null;
 }
 
 //////////////////////////////
 // Returns whether the feature can stand alone
 //////////////////////////////
 //TODO: Update this list
-$single-string-features: 'color',
-                                    'color-index',
-                                    'grid',
-                                    'monochrome';
+$_single: 'color',
+          'color-index',
+          'grid',
+          'monochrome';
 
-@function single-string($feature) {
-  @each $item in $single-string-features {
-    @if $feature == $item {
-      @return true;
-    }
-  }
-  @return false;
+@function is-single($feature) {
+    @return list.index($_single, $feature) != null;
 }
 
 //////////////////////////////
 // Returns whether the feature
 //////////////////////////////
+//TODO: Something seems off here, or maybe just outdated, check how the library handles resolution
+$_resolution: if(settings.get('transform resolutions'),
+                ('device-pixel-ratio',
+                'dpr',
+                'resolution'),
+                ('device-pixel-ratio',
+                'dpr'));
 @function is-resolution($feature) {
-  $resolutions: 'device-pixel-ratio', 'dpr';
-
-  @if settings.get('transform resolutions') {
-    $resolutions: append($resolutions, 'resolution');
+  @if (string.slice($feature, 1, 4) == 'min-' or string.slice($feature, 1, 4) == 'max-') {
+      $feature: string.slice($feature, 5, -1);
   }
-
-  @each $reso in $resolutions {
-    @if index($feature, $reso) or index($feature, 'min-#{$reso}') or index($feature, 'max-#{$reso}') {
-      @return true;
-    }
-  }
-
-  @return false;
+  @return list.index($_resolution, $feature) != null;
 }
