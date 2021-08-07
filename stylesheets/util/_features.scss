@@ -1,0 +1,101 @@
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:string';
+
+@use "breakpoint/settings";
+
+//////////////////////////////
+// Returns whether the feature can have a min/max pair
+//////////////////////////////
+//TODO: Update this list
+$_min-max: 'color',
+           'color-index',
+           'aspect-ratio',
+           'device-aspect-ratio',
+           'device-height',
+           'device-width',
+           'height',
+           'monochrome',
+           'resolution',
+           'width';
+
+@function is-min-max($feature) {
+  @return list.index($_min-max, $feature) != null;
+}
+
+//////////////////////////////
+// Returns whether the feature can have a string value
+//////////////////////////////
+//TODO: Update this list
+$_string: 'orientation',
+          'scan',
+          'color',
+          'aspect-ratio',
+          'device-aspect-ratio',
+          'pointer',
+          'luminosity';
+
+@function is-string($feature) {
+  //TODO: the first clause below is what existed before, but it seems wrong.  Some things above, like aspect-ratio, can be
+  //provided without the min or max for an exact value, so why does this have to return false in that case?
+  @return ((list.index($_string, $feature) != null and not is-min-max($feature)) or
+            (meta.type-of($feature) == 'string' and
+            (string.slice($feature, 1, 4) == 'max-' or string.slice($feature, 1, 4) == 'min-') and
+            is-min-max(string.slice($feature, 5, -1)) and
+            list.index($_string, string.slice($feature, 5, -1)) != null));
+}
+
+//////////////////////////////
+// Returns whether the feature is a media type
+//////////////////////////////
+//TODO: Update this list
+$_media: 'all',
+         'braille',
+         'embossed',
+         'handheld',
+         'print',
+         'projection',
+         'screen',
+         'speech',
+         'tty',
+         'tv';
+
+@function is-media($feature) {
+  @if (meta.type-of($feature) == 'string' and string.slice($feature, 1, 4) == 'not ') {
+    $feature: string.slice($feature, 5, -1);
+  } @else if (meta.type-of($feature) == 'string' and string.slice($feature, 1, 5) == 'only ') {
+    $feature: string.slice($feature, 6, -1);
+  }
+  @return list.index($_media, $feature) != null;
+}
+
+//////////////////////////////
+// Returns whether the feature can stand alone
+//////////////////////////////
+//TODO: Update this list
+$_single: 'color',
+          'color-index',
+          'grid',
+          'monochrome';
+
+@function is-single($feature) {
+    @return list.index($_single, $feature) != null;
+}
+
+//////////////////////////////
+// Returns whether the feature
+//////////////////////////////
+//TODO: Something seems off here, or maybe just outdated, check how the library handles resolution
+$_resolution: if(settings.get('transform resolutions'),
+                ('device-pixel-ratio',
+                'dpr',
+                'resolution'),
+                ('device-pixel-ratio',
+                'dpr'));
+@function is-resolution($feature) {
+  @if (meta.type-of($feature) == 'string' and
+      (string.slice($feature, 1, 4) == 'min-' or string.slice($feature, 1, 4) == 'max-')) {
+      $feature: string.slice($feature, 5, -1);
+  }
+  @return list.index($_resolution, $feature) != null;
+}

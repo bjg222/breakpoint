@@ -7,9 +7,10 @@ $breakpoint: () !default;
 //////////////////////////////
 @forward 'breakpoint/settings' as settings-*;
 @use "breakpoint/settings";
+@use "util/convert";
+@use "util/features";
 
 @import 'breakpoint/context';
-@import 'breakpoint/helpers';
 @import 'breakpoint/parsers';
 @import 'breakpoint/no-query';
 
